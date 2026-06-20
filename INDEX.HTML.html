@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروپزال اردوی جهاد اکبر</title>
+    <!-- Font Awesome & Chart.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7fc;
+            color: #1e2a3a;
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            padding: 40px 50px;
+        }
+        h1, h2, h3 {
+            color: #0b2a4a;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h1 {
+            font-size: 2.4rem;
+            border-bottom: 4px solid #b22234;
+            padding-bottom: 15px;
+            margin-top: 0;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.8rem;
+            border-right: 6px solid #b22234;
+            padding-right: 15px;
+            background: #f0f4fa;
+            border-radius: 0 8px 8px 0;
+            padding: 10px 20px;
+        }
+        h3 {
+            font-size: 1.3rem;
+            color: #1e3a5f;
+        }
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+        ul, ol {
+            margin-right: 2rem;
+            margin-bottom: 1.2rem;
+        }
+        li {
+            margin-bottom: 0.4rem;
+        }
+        .highlight {
+            background: #eef3f9;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .meta-info {
+            background: #e9eff5;
+            padding: 20px 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 40px;
+        }
+        .meta-info i {
+            color: #b22234;
+            width: 28px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .card {
+            background: #f8faff;
+            padding: 24px 20px;
+            border-radius: 20px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+            border: 1px solid #e2eaf2;
+            transition: 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #b22234;
+        }
+        .card i {
+            font-size: 2.2rem;
+            color: #b22234;
+            margin-bottom: 12px;
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+        .chart-box {
+            background: #fafcff;
+            padding: 25px;
+            border-radius: 24px;
+            border: 1px solid #dce5ef;
+            margin: 35px 0;
+        }
+        .chart-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+        }
+        .chart-wrapper canvas {
+            max-width: 300px;
+            max-height: 300px;
+            margin: 0 auto;
+        }
+        .chart-legend {
+            flex: 1;
+            min-width: 180px;
+        }
+        .flowchart {
+            background: #f2f6fd;
+            padding: 30px 20px;
+            border-radius: 28px;
+            margin: 35px 0;
+            overflow-x: auto;
+        }
+        .flow-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px 20px;
+            margin: 10px 0;
+        }
+        .flow-step {
+            background: white;
+            border-radius: 40px;
+            padding: 12px 28px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 2px solid #b22234;
+            font-weight: 600;
+            text-align: center;
+            min-width: 100px;
+        }
+        .flow-step.light {
+            border-color: #6b8ba4;
+            background: #f0f7fe;
+        }
+        .flow-arrow {
+            font-size: 1.6rem;
+            color: #6b8ba4;
+            font-weight: 300;
+        }
+        .infographic {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+        .info-item {
+            background: linear-gradient(145deg, #ffffff, #f5faff);
+            border-radius: 24px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+            border: 1px solid #dfeaf3;
+        }
+        .info-item i {
+            font-size: 2.8rem;
+            color: #b22234;
+            background: #ffeeee;
+            padding: 16px;
+            border-radius: 60px;
+            margin-bottom: 15px;
+        }
+        .info-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .info-item p {
+            font-size: 0.95rem;
+            color: #2c405a;
+            text-align: center;
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #cbd8e6;
+            text-align: center;
+            color: #3d5775;
+            font-size: 0.95rem;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.8rem; }
+            .meta-info { flex-direction: column; gap: 8px; }
+            .chart-wrapper { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>📜 پروپزال اردوی آموزشی-تشکیلاتی «جهاد اکبر»</h1>
+    <p style="text-align:center; font-size:1.2rem; color:#2c405a;"><i class="fas fa-graduation-cap" style="color:#b22234;"></i> گامی در مسیر رشد و تعالی تشکیلاتی</p>
+
+    <!-- مقدمه -->
+    <h2>مقدمه</h2>
+    <p>«جهاد اکبر» به معنای جهاد با نفس و مبارزه با خواهش‌های درونی، تعبیری است که در روایات اسلامی به عنوان بزرگ‌ترین جهاد معرفی شده است. این مفهوم، بنیان‌گذار نگرشی است که در آن، خودسازی و تقویت مبانی فکری و معنوی، مقدمه هرگونه تحول و فعالیت مؤثر در عرصه اجتماع و سیاست دانسته می‌شود.</p>
+    <p>اردوی «جهاد اکبر» صرفاً یک گردهمایی نیست؛ بلکه نقطه‌ی شروع یک حرکت بزرگ و قیام دانشجویی برای تحول‌آفرینی در دانشگاه و جامعه است. این اردو که هر ساله توسط اتحادیه انجمن‌های اسلامی دانشجویان مستقل برگزار می‌شود، به عنوان یک فرایند تربیتی-آموزشی بلندمدت طراحی شده تا زمینه‌ساز رشد تشکیلاتی دانشجویان باشد.</p>
+
+    <!-- اطلاعات کلی -->
+    <div class="meta-info">
+        <span><i class="fas fa-calendar-alt"></i> زمان: بهمن‌ماه (تعطیلات بین دو نیم‌سال) – حدوداً ۱۷ تا ۲۴ بهمن</span>
+        <span><i class="fas fa-map-pin"></i> مکان: مشهد مقدس – جوار حرم مطهر رضوی</span>
+        <span><i class="fas fa-users"></i> مخاطب: دانشجویان عضو انجمن‌های اسلامی دانشجویان مستقل</span>
+    </div>
+
+    <!-- اهداف کلان -->
+    <h2>۱. اهداف کلان و راهبردی</h2>
+    <p>هدف غایی این اردو، تربیت نیروهای متعهد، کارآمد و انقلابی برای ایفای نقش در عرصه‌های مختلف جامعه است. این هدف در قالب اهداف زیر دنبال می‌شود:</p>
+    <ul>
+        <li><strong>خودسازی و تعالی فردی:</strong> تقویت معنویت، اخلاق و مبانی اندیشه‌ای دانشجویان به عنوان محور اصلی فعالیت‌های تشکیلاتی.</li>
+        <li><strong>آشنایی با مبانی تشکیلاتی:</strong> تربیت نیروهای تازه‌نفس و آگاه به اصول و روش‌های کار تشکیلاتی.</li>
+        <li><strong>ایجاد وحدت رویه و انسجام:</strong> گرد هم آوردن دانشجویان از سراسر کشور برای ایجاد وحدت صفوف و هم‌افزایی.</li>
+        <li><strong>نقش‌آفرینی و تحول‌آفرینی:</strong> توانمندسازی دانشجویان برای تبدیل شدن به عناصر مؤثر و تحول‌آفرین در دانشگاه و کشور.</li>
+    </ul>
+
+    <!-- اینفوگرافیک اهداف -->
+    <div class="infographic">
+        <div class="info-item"><i class="fas fa-heart"></i><h4>خودسازی</h4><p>تقویت معنویت و اخلاق فردی</p></div>
+        <div class="info-item"><i class="fas fa-users-cog"></i><h4>تشکیلاتی</h4><p>آشنایی با اصول کار گروهی</p></div>
+        <div class="info-item"><i class="fas fa-handshake"></i><h4>انسجام</h4><p>وحدت رویه و هم‌افزایی</p></div>
+        <div class="info-item"><i class="fas fa-rocket"></i><h4>تحول‌آفرینی</h4><p>نقش‌آفرینی مؤثر در جامعه</p></div>
+    </div>
+
+    <!-- مخاطبان -->
+    <h2>۲. مخاطبان</h2>
+    <p>این اردو ویژه دانشجویان عضو انجمن‌های اسلامی دانشجویان مستقل از دفاتر سراسر کشور طراحی شده است. با این حال، الگوی آن قابل تعمیم به سایر تشکل‌های دانشجویی با رویکردهای مشابه است.</p>
+
+    <!-- زمان و مکان -->
+    <h2>۳. زمان و مکان برگزاری</h2>
+    <ul>
+        <li><strong>زمان:</strong> با توجه به سابقه برگزاری، بهترین زمان، بازه تعطیلی بین دو نیم‌سال تحصیلی (معمولاً بهمن‌ماه) است که فرصت مناسبی برای تمرکز و حضور دانشجویان فراهم می‌کند. دوره‌های گذشته معمولاً به مدت یک هفته (مثلاً ۱۷ تا ۲۴ بهمن‌ماه) برگزار شده‌اند. پیش‌نیاز آن، یک دوره مجازی مقدماتی برای آماده‌سازی ذهنی شرکت‌کنندگان است.</li>
+        <li><strong>مکان:</strong> شهر مقدس مشهد، در جوار حرم مطهر رضوی، به دلیل فضای معنوی و زیارتی، مکان اصلی و ایده‌آلی برای برگزاری این اردو بوده است.</li>
+    </ul>
+
+    <!-- ساختار و محتوا -->
+    <h2>۴. ساختار و محتوای پیشنهادی اردو</h2>
+    <p>برنامه‌های اردو در دو بخش اصلی «آموزشی» و «تشکیلاتی» طراحی می‌شوند:</p>
+
+    <h3>بخش آموزشی (ارتقای بینش)</h3>
+    <ul>
+        <li><strong>مبانی فکری و اعتقادی:</strong> کارگاه‌ها و سخنرانی‌هایی پیرامون موضوعاتی نظیر «رسالت انسان و هدف از آفرینش»، «ولایت فقیه» و «طرح کلی اندیشه اسلامی».</li>
+        <li><strong>مسائل روز:</strong> بررسی مسائل سیاسی، فرهنگی، اقتصادی و اجتماعی روز کشور با رویکردی تحلیلی و متناسب با نگاه دانشجویان.</li>
+        <li><strong>حل مسئله (رویداد عملیاتی):</strong> رویکردی نوین که دانشجویان را از بحث‌های تئوریک به مرحله عمل می‌رساند و با ضرورت کار گروهی و تشکیلاتی آشنا می‌سازد.</li>
+    </ul>
+
+    <h3>بخش تشکیلاتی (ارتقای مهارت)</h3>
+    <ul>
+        <li><strong>کارگاه‌های مهارتی:</strong> آموزش اصول مدیریت، برنامه‌ریزی، جذب نیرو، ارتباط مؤثر و سایر مهارت‌های لازم برای فعالیت در یک تشکل.</li>
+        <li><strong>جلسات چالشی و تعاملی:</strong> برگزاری نشست‌های پرسش و پاسخ با مسئولان و شخصیت‌های فرهنگی و سیاسی برای ایجاد فضای نقد و گفت‌وگو.</li>
+        <li><strong>برنامه‌های فرهنگی و هم‌افزایی:</strong> برگزاری همایش‌های جانبی با موضوعات اثرگذار مانند «زنان تاریخ‌ساز» و دیگر برنامه‌های فرهنگی برای غنی‌سازی فضای اردو.</li>
+    </ul>
+
+    <!-- نمودار توزیع محتوا -->
+    <div class="chart-box">
+        <h3 style="margin-top:0;"><i class="fas fa-chart-pie"></i> توزیع محتوای آموزشی – تشکیلاتی اردو</h3>
+        <div class="chart-wrapper">
+            <canvas id="contentChart" width="300" height="300"></canvas>
+            <div class="chart-legend">
+                <p><span style="background:#b22234; display:inline-block; width:18px; height:18px; border-radius:4px;"></span> مبانی فکری و اعتقادی (۲۵%)</p>
+                <p><span style="background:#d45a5a; display:inline-block; width:18px; height:18px; border-radius:4px;"></span> مسائل روز و تحلیل (۲۰%)</p>
+                <p><span style="background:#e8836b; display:inline-block; width:18px; height:18px; border-radius:4px;"></span> حل مسئله عملیاتی (۲۰%)</p>
+                <p><span style="background:#4a7a9c; display:inline-block; width:18px; height:18px; border-radius:4px;"></span> کارگاه‌های مهارتی (۱۸%)</p>
+                <p><span style="background:#6b9bbf; display:inline-block; width:18px; height:18px; border-radius:4px;"></span> جلسات چالشی و تعاملی (۱۰%)</p>
+                <p><span style="background:#aac7df; display:inline-block; width:18px; height:18px; border-radius:4px;"></span> برنامه‌های فرهنگی (۷%)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- فلوچارت -->
+    <h2>فلوچارت فرآیند برگزاری اردو</h2>
+    <div class="flowchart">
+        <div class="flow-row">
+            <span class="flow-step">ثبت‌نام و گزینش</span>
+            <span class="flow-arrow"><i class="fas fa-arrow-left"></i></span>
+            <span class="flow-step light">دوره مجازی مقدماتی</span>
+            <span class="flow-arrow"><i class="fas fa-arrow-left"></i></span>
+            <span class="flow-step">ورود به اردوی حضوری (مشهد)</span>
+        </div>
+        <div class="flow-row">
+            <span class="flow-arrow"><i class="fas fa-arrow-down"></i></span>
+        </div>
+        <div class="flow-row">
+            <span class="flow-step light">بخش آموزشی (سخنرانی، کارگاه)</span>
+            <span class="flow-arrow"><i class="fas fa-arrow-left"></i></span>
+            <span class="flow-step light">بخش تشکیلاتی (مهارت، چالش)</span>
+            <span class="flow-arrow"><i class="fas fa-arrow-left"></i></span>
+            <span class="flow-step light">برنامه‌های فرهنگی و هم‌افزایی</span>
+        </div>
+        <div class="flow-row">
+            <span class="flow-arrow"><i class="fas fa-arrow-down"></i></span>
+        </div>
+        <div class="flow-row">
+            <span class="flow-step">ارزیابی و بازخورد</span>
+            <span class="flow-arrow"><i class="fas fa-arrow-left"></i></span>
+            <span class="flow-step">مراسم اختتامیه و اعطای گواهی</span>
+            <span class="flow-arrow"><i class="fas fa-arrow-left"></i></span>
+            <span class="flow-step light">شروع دوره تربیتی ۴ ساله</span>
+        </div>
+    </div>
+
+    <!-- نتایج مورد انتظار -->
+    <h2>۵. نتایج مورد انتظار (دستاوردها)</h2>
+    <ul>
+        <li>ارتقاء سطح معرفتی و بصیرتی دانشجویان.</li>
+        <li>افزایش انسجام و هویت تشکیلاتی میان اعضا.</li>
+        <li>ایجاد شبکه‌ای از نیروهای متعهد و کارآمد برای فعالیت در سطح دانشگاه و کشور.</li>
+        <li>آغاز یک فرایند تربیتی مستمر و بلندمدت (احتمالاً یک دوره ۴ ساله) برای رشد و تعالی دانشجویان.</li>
+    </ul>
+
+    <!-- اینفوگرافیک دستاوردها (دومین) -->
+    <div class="infographic">
+        <div class="info-item"><i class="fas fa-eye"></i><h4>ارتقای بصیرت</h4><p>افزایش معرفت و تحلیل</p></div>
+        <div class="info-item"><i class="fas fa-link"></i><h4>انسجام</h4><p>همبستگی و هویت تشکیلاتی</p></div>
+        <div class="info-item"><i class="fas fa-network-wired"></i><h4>شبکه‌سازی</h4><p>نیروهای متعهد و کارآمد</p></div>
+        <div class="info-item"><i class="fas fa-seedling"></i><h4>تربیت مستمر</h4><p>دوره ۴ ساله رشد</p></div>
+    </div>
+
+    <!-- جمع‌بندی -->
+    <h2>۶. جمع‌بندی و پیشنهاد</h2>
+    <p>اردوی «جهاد اکبر» یک سرمایه‌گذاری راهبردی برای آینده‌سازی است. با توجه به سابقه درخشان و تأثیرات عمیق آن، پیشنهاد می‌شود با برنامه‌ریزی دقیق‌تر، استفاده از اساتید و کارشناسان مجرب و به‌روزرسانی محتوای آموزشی، زمینه برای برگزاری هرچه پربارتر این اردو فراهم شود. این اردو می‌تواند به عنوان الگویی موفق برای سایر تشکل‌های دانشجویی در سراسر کشور مطرح شود.</p>
+
+    <div class="footer-note">
+        <i class="fas fa-flag" style="color:#b22234;"></i> تهیه‌شده توسط اتحادیه انجمن‌های اسلامی دانشجویان مستقل – اردوی جهاد اکبر
+    </div>
+</div>
+
+<script>
+    // نمودار دایره‌ای
+    const ctx = document.getElementById('contentChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['مبانی فکری و اعتقادی', 'مسائل روز و تحلیل', 'حل مسئله عملیاتی', 'کارگاه‌های مهارتی', 'جلسات چالشی و تعاملی', 'برنامه‌های فرهنگی'],
+            datasets: [{
+                data: [25, 20, 20, 18, 10, 7],
+                backgroundColor: ['#b22234', '#d45a5a', '#e8836b', '#4a7a9c', '#6b9bbf', '#aac7df'],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
